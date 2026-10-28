@@ -94,6 +94,48 @@ For other setups:
 - [Other agents](https://github.github.io/spec-kit/integrations/index.html) for integration keys and [invocation syntax](https://github.github.io/spec-kit/integrations/cli.html#command-invocation).
 - [Upgrade](https://github.github.io/spec-kit/upgrade.html) to update an existing installation.
 
+<a id="-personal-base"></a>
+
+## Personal base (this fork)
+
+This fork ships a bundled `pessoal` preset with the workflow commands I use in
+every repository: `setup-pessoal`, `commit`, `openpr`, `open-release`,
+`send-release`, `refine`, and `open-jira-issue`. The full setup and configuration
+reference live in [`presets/pessoal/README.md`](presets/pessoal/README.md).
+
+Install the CLI from this fork once. It bundles the preset, so `init` and
+`preset add` work offline:
+
+```bash
+uv tool install --force specify-cli --from git+https://github.com/VictorMLima98/spec-kit.git
+```
+
+Start any repository with the full base:
+
+```bash
+specify init . --integration opencode --preset pessoal
+```
+
+Add the base to an existing Spec Kit project:
+
+```bash
+specify preset add pessoal
+```
+
+Update the CLI and the installed preset later:
+
+```bash
+uv tool install --force specify-cli --from git+https://github.com/VictorMLima98/spec-kit.git
+specify preset update pessoal
+```
+
+Run `/speckit.setup-pessoal` to create the config interactively. It also copies
+the bundled pull request template to `.github/pull_request_template.md` when the
+repository has none. The commit and pull-request commands need no configuration.
+Release and Jira commands read `.specify/pessoal.yml` when it exists; the Jira
+commands require `jira.cloud_id` and `jira.project` plus an Atlassian MCP server
+in the agent session.
+
 <a id="-what-is-spec-driven-development"></a>
 <a id="sdd-quickstart"></a>
 
